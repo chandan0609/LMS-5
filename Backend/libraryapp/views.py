@@ -33,6 +33,8 @@ class UserViewSet(viewsets.ModelViewSet):
             permission_classes = [IsAdminOrLibrarian]
         elif self.action in ['retrieve', 'update', 'partial_update','me']:
             permission_classes = [IsAuthenticated]
+        elif self.action == 'destroy':
+            permission_classes = [IsAdminOrLibrarian]
         else:
             permission_classes = [IsAdminUser]
         return [permission() for permission in permission_classes]

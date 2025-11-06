@@ -1,7 +1,7 @@
 // src/components/users/UserList.jsx
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUsers } from "../../redux/slices/userSlice";
+import { fetchUsers, deleteUser } from "../../redux/slices/userSlice";
 import {
   Box,
   Typography,
@@ -27,6 +27,12 @@ const UserList = () => {
   useEffect(() => {
     dispatch(fetchUsers());
   }, [dispatch]);
+
+  const handleDelete = async (id) => {
+    if (window.confirm("Are you sure you want to delete this user?")) {
+      await dispatch(deleteUser(id));
+    }
+  };
 
   if (loading)
     return (
@@ -119,7 +125,7 @@ const UserList = () => {
                     </TableCell>
                     <TableCell>
                       <Button
-                        component={Link}
+                        onClick={() => handleDelete(user.id)}
                         to={`/users/${user.id}`}
                         variant="contained"
                         size="small"
@@ -134,7 +140,7 @@ const UserList = () => {
                           },
                         }}
                       >
-                        View
+                        delete
                       </Button>
                     </TableCell>
                   </TableRow>

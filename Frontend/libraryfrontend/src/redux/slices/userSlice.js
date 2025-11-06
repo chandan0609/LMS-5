@@ -26,6 +26,13 @@ export const fetchUserDetails = createAsyncThunk(
     }
   }
 );
+export const deleteUser = createAsyncThunk(
+  "users/deleteUser",
+  async (id, { rejectWithValue }) => {
+    await apiClient.delete(`/users/${id}/`);
+    return id;
+  }
+);
 
 const userSlice = createSlice({
   name: "users",
@@ -68,6 +75,12 @@ const userSlice = createSlice({
       .addCase(fetchUserDetails.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+      })
+      .addCase(deleteUser.fulfilled, (state, action) => {
+        state.users = state.users.filter((user) => user.id !== action.payload);
+      })
+      .addCase(deleteUser.rejected, (state, action) => {
+        state.error = action.error.message;
       });
   },
 });

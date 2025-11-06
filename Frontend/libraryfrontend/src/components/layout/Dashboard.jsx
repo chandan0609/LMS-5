@@ -87,7 +87,6 @@ const Dashboard = () => {
         return dayjs(record.due_date).isBefore(dayjs());
       }).length || 0;
 
-
   return (
     <Box
       sx={{
@@ -108,7 +107,7 @@ const Dashboard = () => {
           justifyContent: "space-between",
           position: "fixed",
           top: "64px",
-          left:0,
+          left: 0,
           height: { md: "100vh" },
         }}
       >
@@ -200,7 +199,7 @@ const Dashboard = () => {
       <Box
         sx={{
           flex: 1,
-          p: { xs: 3, md: 5 },
+          p: { xs: 3, md: 13 },
           overflowY: "auto",
         }}
       >
